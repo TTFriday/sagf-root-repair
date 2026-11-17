@@ -1,0 +1,59 @@
+# Data and weights are not part of this repository.
+data/*
+!data/README.md
+outputs/
+release/
+*.pt
+*.pth
+*.ckpt
+
+# Probability caches and other generated artifacts
+cache/
+caches/
+probs_*/
+*.npz
+*.npy
+*.h5
+*.hdf5
+weights/
+checkpoints/
+*.safetensors
+
+# Manuscript assets and typesetting are maintained separately
+paper/
+manuscript/
+figures/
+figure/
+plots/
+latex/
+*.pdf
+*.png
+*.svg
+*.eps
+*.tex
+*.sty
+*.cls
+*.bib
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.pytest_tmp/
+.venv/
+venv/
+build/
+dist/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

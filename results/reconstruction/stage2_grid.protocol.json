@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "top": 2,
+  "candidates": 180,
+  "family_counts": {
+    "raw": 1,
+    "union": 5,
+    "hyst": 3,
+    "close": 4,
+    "size": 16,
+    "lcc": 5,
+    "bridge": 20,
+    "anchor": 12,
+    "size+anchor": 20,
+    "sagf": 62,
+    "sagffilter": 9,
+    "sagfgeom": 8,
+    "sagfadd": 8,
+    "sagflargest": 7
+  },
+  "grid_sha256": "7fc7dbf7d30938aaf02e2632d996e185ec62d580724ebef6b082aa0c95dd02cc",
+  "ranking": "outputs/reconstruction/stage1_ranking.csv",
+  "ranking_sha256": "f4bc103e08a31e7b08bfa5eb54696a5d947dee91f7d7f11fbdefeac39496f699",
+  "ranking_protocol": "outputs/reconstruction/stage1_ranking.protocol.json",
+  "ranking_protocol_sha256": "d4c0f840b9a74ac6ec8a569140f028d03d9b3a62c897ad1b74d1d4fbb4ea00d4",
+  "implementation_sha256": {
+    "scripts/make_stage2_grid.py": "cce21d1bf33482cd9e905b67d17dfbaac1be7e9d495b22312c8473400c675f39",
+    "scripts/select_reconstruction.py": "da827b322fb1c789adf49699a4a1f96d542904b3f33a629d51770438b6e3a5a6"
+  }
+}

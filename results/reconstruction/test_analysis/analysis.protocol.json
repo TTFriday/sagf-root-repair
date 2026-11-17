@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen": "outputs/reconstruction/frozen.json",
+  "frozen_sha256": "a6eaac222dc8ac6711ee98cb91b4c25d9fac0b6093200f7f5bfec7da4b7f3648",
+  "results": [
+    {
+      "path": "outputs/reconstruction/test_region.csv",
+      "sha256": "34a1a2ef39389bf7e216b15f4d104d13ec20430dbfb5b01e659ba0255bdc03e7",
+      "protocol_sha256": "a1732376074ebb08cce44d10cbf9908f1f8e7c9576e152beb1514deef7795f18"
+    },
+    {
+      "path": "outputs/reconstruction/test_transfer.csv",
+      "sha256": "f4d9cd210f887dd928b38c69f21084bcd047a644ca31aebc1a41685a6dc2968b",
+      "protocol_sha256": "19ad74a6e725abf5314b61cc112c255fa09c0d73332b8073caa6bc4ab46ee952"
+    }
+  ],
+  "iterations": 10000,
+  "seed": 20261113,
+  "experiments": [
+    "baseline_region",
+    "baseline_cldice",
+    "baseline_skelrecall",
+    "full",
+    "ablation_uniform",
+    "ablation_no_joint_root",
+    "ablation_no_skeleton_head"
+  ],
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "implementation_sha256": {
+    "scripts/analyze_reconstruction.py": "72b935bea62870fa0d78a8e3f80311c9e3191062f6a35b61105e2a37337ba08c",
+    "scripts/select_reconstruction.py": "44f16fb0b6fcd0d323f910f5fc3cfafdc4a6fed7027f92a8f631d8edefc5f26d",
+    "src/toposeg/stats.py": "c7fe904532ae9659fd62192baf1d2edd7d810e0e4aaca252be4e24660d9c770a"
+  }
+}

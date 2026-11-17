@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-15T14:22:46.190375+00:00",
+  "file": "scripts/select_reconstruction.py",
+  "previous_sha256": "da827b322fb1c789adf49699a4a1f96d542904b3f33a629d51770438b6e3a5a6",
+  "amended_sha256": "44f16fb0b6fcd0d323f910f5fc3cfafdc4a6fed7027f92a8f631d8edefc5f26d",
+  "stage2_results_sha256": "65d70f9c69ffef0e83fa0dfa05d242f7ed9bec36d4b92769defdf98eafb1e722",
+  "stage2_ranking_sha256": "0b463d472cf8bd8aa9fd90da8a3169eafcf9fad43419b9747ae80e93753dabb1",
+  "test_reconstruction_evaluated": false,
+  "trigger": "No Stage-2 validation configuration of the lcc, size+anchor or sagflargest families met the overlap guard, so the pre-declared freeze stopped without writing a selection.",
+  "rule": "A family without an eligible configuration is recorded under ineligible_families with its highest-MRER configuration and its guard deltas, and is not carried to the test split. The SAGF family must have an eligible configuration. Selection within eligible families is unchanged."
+}

@@ -1,0 +1,21 @@
+{
+  "analysis_type": "post-hoc exploratory; original confirmatory inference unchanged",
+  "created_utc": "2026-11-17T15:00:04.737465+00:00",
+  "inputs_sha256": {
+    "test_counts.csv": "28f16b114555cdfb64c8c5746b8bfd371ec1aeb3948c7592f7437aa05c3a8ef0",
+    "test_counts_comparators.csv": "9cc8680bfdd21dd67a637a5d9c30649c77a06e7561fe3b270e16d97b386abdcf",
+    "test.csv": "c0883c73fefb2d8ce8adb0b07c2cff7e6f5d87f4753aa112a774bbcefcbc3bc4",
+    "ood.csv": "3293473b9996caf5e6fb86ab9b9a46d5f8a797d4714456751f220ddd4dc251de",
+    "frozen.json": "a6eaac222dc8ac6711ee98cb91b4c25d9fac0b6093200f7f5bfec7da4b7f3648"
+  },
+  "script_sha256": "f57144aa1279177914186a418619ab1b6075bfdd58e19b474ee6e60d40d78171",
+  "statistics": "seed/image means within event; 20000 event bootstrap resamples; exact 2^n sign flips",
+  "holm_families": {
+    "counts": 8,
+    "pooled_objective_size_comparison": 5
+  },
+  "seed": 20261117,
+  "selection": "none; counts, leave-one-event-out estimates and all five pooled size contrasts reported",
+  "unmapped_inference": "none; acquisition dependence unavailable",
+  "count_definition": "positive/negative signed count error, not spatially matched false-positive/false-negative points"
+}

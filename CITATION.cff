@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "sagf-root-repair: shoot-anchored geodesic forests for root topology repair under an event-grouped protocol"
+abstract: "Training-free shoot-anchored geodesic-forest repair of root segmentations, with frozen event-grouped evaluation, cross-objective results and separately identified exploratory count, fixed-parameter, DRIVE comparator and point-matching analyses."
+version: 1.2.0
+date-released: "2026-11-17"
+license: MIT
+repository-code: "https://github.com/TTFriday/sagf-root-repair"
+keywords:
+  - Arabidopsis thaliana
+  - root system architecture
+  - semantic segmentation
+  - topology-preserving loss
+  - clDice
+  - benchmark leakage
+  - training-free post-processing
+  - geodesic reconstruction
+  - spanning forest
+authors:
+  - family-names: Tu
+    given-names: Lifen
+    orcid: "https://orcid.org/0000-0002-5774-8138"
+    email: iteachtu@hbeu.edu.cn
+    affiliation: "School of Physics and Electronic Information Engineering, Hubei Engineering University, Xiaogan, Hubei, China"
+  - family-names: Peng
+    given-names: Qi
+    orcid: "https://orcid.org/0000-0002-5693-0480"
+    email: petersky0316@hbeu.edu.cn
+    affiliation: "School of Physics and Electronic Information Engineering, Hubei Engineering University, Xiaogan, Hubei, China"
