@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 type: software
-title: "sagf-root-repair: shoot-anchored geodesic forests for root topology repair under an event-grouped protocol"
-abstract: "Training-free shoot-anchored geodesic-forest repair of root segmentations, with frozen event-grouped evaluation, cross-objective results and separately identified exploratory count, fixed-parameter, DRIVE comparator and point-matching analyses."
-version: 1.2.0
-date-released: "2026-11-17"
+title: "sagf-root-repair: shoot-anchored geodesic forest decoding for root segmentation repair"
+abstract: "Training-free shoot-anchored geodesic-forest repair of root segmentations, with unchanged frozen event-grouped evaluation, cross-objective results, independent complete-network algorithm verification and separately identified exploratory count, fixed-parameter, DRIVE comparator and point-matching analyses."
+version: 1.3.0
+date-released: "2026-11-24"
 license: MIT
 repository-code: "https://github.com/TTFriday/sagf-root-repair"
 keywords:

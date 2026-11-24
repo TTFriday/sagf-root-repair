@@ -1,0 +1,14 @@
+{
+  "runs": 21,
+  "reached_cap": 11,
+  "stopped_early": 10,
+  "stopping_step_range": [
+    17600,
+    30000
+  ],
+  "selected_step_range": [
+    12100,
+    29700
+  ],
+  "checkpoint_hash_binding_checked": false
+}

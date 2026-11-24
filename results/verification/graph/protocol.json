@@ -1,0 +1,3857 @@
+{
+  "protocol_version": 2,
+  "seed": 20261124,
+  "budgets": [
+    0.0,
+    1.0,
+    4.0,
+    10.0,
+    1000.0
+  ],
+  "tolerance": {
+    "atol": 1e-08,
+    "rtol": 1e-09,
+    "budget_comparison": "exact <=, no tolerance"
+  },
+  "oracle": "symmetric explicit-zero CSR eight-neighbour pixel arcs; per-node all-boundary multi-source Dijkstra; Floyd min-max",
+  "distance_checks": "root beta finite/+inf status and numeric values; NaN/-inf are failures; not each pair or drawing path",
+  "owner_check": "every independent boundary source must retain its original node owner",
+  "random_generator": "independent recorded per-case seeds; 4-pixel cells with a background moat; 1..3-pixel rectangles; no discarded cases",
+  "roi": {
+    "size": [
+      256,
+      256
+    ],
+    "center": "first predicted shoot 8CC centroid; image center if no shoot",
+    "rounding": "floor centroid, subtract 128, clip window origin to image bounds",
+    "decode": "production seven-class argmax",
+    "min_area": 20,
+    "min_peak": 0,
+    "other_filters": "disabled",
+    "anchor_min_area": 0,
+    "skip": "more than 80 occupied nodes or no root; no replacement",
+    "gt": "not read",
+    "purpose": "cropped graph algorithm validation, not full-image performance"
+  },
+  "benchmark": {
+    "repeats": 3,
+    "warmup": 0,
+    "layout": "same seeded input in each repeat; 4x4 grid of 3x3 nodes",
+    "radius": "size (full pixel domain), separate synthetic scaling protocol",
+    "production_ms": "fragment_graph total only, excluding beta/forest",
+    "oracle_ms": "independent domain + CSR + all source propagations + complete distances + Floyd total",
+    "interpretation": "paired implementations, not system speedup; no stage timing or memory estimates"
+  },
+  "environment": {
+    "python": "3.10.22",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "scikit_image": "0.25.2",
+    "system": "Windows",
+    "release": "10",
+    "architecture": "AMD64",
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "frozen_source_sha256": {
+    "src/toposeg/reconstruction.py": "a061111e84a4780b6f2b3e7a2183a998bb522101f89e372e1fe3551f0e15f0d6",
+    "src/toposeg/constants.py": "065cde09b86f94ac76d906cdcbbf584fa2c8dc7e7c657db2dad09cdea59f77db",
+    "scripts/verify_fragment_graph.py": "67afae4eec25bfca355d35ab5391d5a0faa76a2cf1f1cc2467467988f1f5189b",
+    "tests/test_fragment_graph_verification.py": "d5df635e4b51b451b2779bdcd6f6b7d4a2e1317bee507d5ac5162fcb049c5873"
+  },
+  "cases": [
+    {
+      "case_id": "fixed_sources_zero_tie",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0,
+        "lam": 0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "touching_sources",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 1,
+        "lam": 0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "no_anchors",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "multi_anchors",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "leaf_obstacle",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "petiole_obstacle",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "disconnect_band",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "edge_boundary",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "full_image_boundary",
+      "kind": "explicit",
+      "shape": [
+        24,
+        24
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "largest"
+      }
+    },
+    {
+      "case_id": "shoot_filters_gappy",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 4,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "shoot_filters_all",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 20,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "largest_anchor",
+      "kind": "explicit",
+      "shape": [
+        24,
+        40
+      ],
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "largest"
+      }
+    },
+    {
+      "case_id": "wide_forest",
+      "kind": "explicit",
+      "shape": [
+        32,
+        40
+      ],
+      "settings": {
+        "step": 1,
+        "lam": 0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_000",
+      "kind": "random",
+      "size": 24,
+      "seed": 4126258947,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_001",
+      "kind": "random",
+      "size": 40,
+      "seed": 540267249,
+      "requested_nodes": 16,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_002",
+      "kind": "random",
+      "size": 40,
+      "seed": 2469085320,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_003",
+      "kind": "random",
+      "size": 24,
+      "seed": 3412309832,
+      "requested_nodes": 11,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_004",
+      "kind": "random",
+      "size": 64,
+      "seed": 3179149175,
+      "requested_nodes": 10,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_005",
+      "kind": "random",
+      "size": 40,
+      "seed": 3919539447,
+      "requested_nodes": 11,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_006",
+      "kind": "random",
+      "size": 64,
+      "seed": 86407073,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_007",
+      "kind": "random",
+      "size": 64,
+      "seed": 1595636222,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_008",
+      "kind": "random",
+      "size": 40,
+      "seed": 3594031842,
+      "requested_nodes": 8,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_009",
+      "kind": "random",
+      "size": 24,
+      "seed": 1802147784,
+      "requested_nodes": 16,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_010",
+      "kind": "random",
+      "size": 24,
+      "seed": 1980341222,
+      "requested_nodes": 10,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_011",
+      "kind": "random",
+      "size": 64,
+      "seed": 3753461143,
+      "requested_nodes": 11,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_012",
+      "kind": "random",
+      "size": 64,
+      "seed": 2730148833,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_013",
+      "kind": "random",
+      "size": 40,
+      "seed": 2809773403,
+      "requested_nodes": 13,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_014",
+      "kind": "random",
+      "size": 24,
+      "seed": 3208054340,
+      "requested_nodes": 15,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_015",
+      "kind": "random",
+      "size": 64,
+      "seed": 1219142028,
+      "requested_nodes": 11,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_016",
+      "kind": "random",
+      "size": 40,
+      "seed": 2311813896,
+      "requested_nodes": 15,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_017",
+      "kind": "random",
+      "size": 24,
+      "seed": 3189055478,
+      "requested_nodes": 9,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_018",
+      "kind": "random",
+      "size": 40,
+      "seed": 2001163686,
+      "requested_nodes": 19,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_019",
+      "kind": "random",
+      "size": 64,
+      "seed": 957764189,
+      "requested_nodes": 14,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_020",
+      "kind": "random",
+      "size": 64,
+      "seed": 3600553163,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_021",
+      "kind": "random",
+      "size": 64,
+      "seed": 427459330,
+      "requested_nodes": 19,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_022",
+      "kind": "random",
+      "size": 24,
+      "seed": 3178153807,
+      "requested_nodes": 16,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_023",
+      "kind": "random",
+      "size": 40,
+      "seed": 2739979590,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_024",
+      "kind": "random",
+      "size": 64,
+      "seed": 2955386242,
+      "requested_nodes": 15,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_025",
+      "kind": "random",
+      "size": 24,
+      "seed": 359434501,
+      "requested_nodes": 9,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_026",
+      "kind": "random",
+      "size": 40,
+      "seed": 3693337757,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_027",
+      "kind": "random",
+      "size": 40,
+      "seed": 2250985874,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_028",
+      "kind": "random",
+      "size": 40,
+      "seed": 2980520229,
+      "requested_nodes": 20,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_029",
+      "kind": "random",
+      "size": 64,
+      "seed": 4093756167,
+      "requested_nodes": 17,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_030",
+      "kind": "random",
+      "size": 40,
+      "seed": 455330152,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_031",
+      "kind": "random",
+      "size": 40,
+      "seed": 3241545553,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_032",
+      "kind": "random",
+      "size": 40,
+      "seed": 1754137226,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_033",
+      "kind": "random",
+      "size": 64,
+      "seed": 4248600877,
+      "requested_nodes": 9,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_034",
+      "kind": "random",
+      "size": 40,
+      "seed": 601468788,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_035",
+      "kind": "random",
+      "size": 64,
+      "seed": 3391372209,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_036",
+      "kind": "random",
+      "size": 40,
+      "seed": 4233370485,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_037",
+      "kind": "random",
+      "size": 40,
+      "seed": 904669270,
+      "requested_nodes": 15,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_038",
+      "kind": "random",
+      "size": 64,
+      "seed": 2561654554,
+      "requested_nodes": 14,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_039",
+      "kind": "random",
+      "size": 64,
+      "seed": 3300226366,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_040",
+      "kind": "random",
+      "size": 24,
+      "seed": 333344089,
+      "requested_nodes": 14,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_041",
+      "kind": "random",
+      "size": 24,
+      "seed": 3010996581,
+      "requested_nodes": 20,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_042",
+      "kind": "random",
+      "size": 24,
+      "seed": 2551851831,
+      "requested_nodes": 10,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_043",
+      "kind": "random",
+      "size": 24,
+      "seed": 3131113125,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_044",
+      "kind": "random",
+      "size": 64,
+      "seed": 281087045,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_045",
+      "kind": "random",
+      "size": 40,
+      "seed": 2771667185,
+      "requested_nodes": 17,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_046",
+      "kind": "random",
+      "size": 64,
+      "seed": 2361108115,
+      "requested_nodes": 20,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_047",
+      "kind": "random",
+      "size": 40,
+      "seed": 235051547,
+      "requested_nodes": 19,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_048",
+      "kind": "random",
+      "size": 24,
+      "seed": 3865604168,
+      "requested_nodes": 12,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_049",
+      "kind": "random",
+      "size": 40,
+      "seed": 3132437005,
+      "requested_nodes": 15,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_050",
+      "kind": "random",
+      "size": 24,
+      "seed": 1606070650,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_051",
+      "kind": "random",
+      "size": 64,
+      "seed": 1328794246,
+      "requested_nodes": 9,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_052",
+      "kind": "random",
+      "size": 64,
+      "seed": 2066576264,
+      "requested_nodes": 15,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_053",
+      "kind": "random",
+      "size": 24,
+      "seed": 1500570086,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_054",
+      "kind": "random",
+      "size": 40,
+      "seed": 420172353,
+      "requested_nodes": 16,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_055",
+      "kind": "random",
+      "size": 64,
+      "seed": 295823481,
+      "requested_nodes": 11,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_056",
+      "kind": "random",
+      "size": 40,
+      "seed": 3838313325,
+      "requested_nodes": 12,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_057",
+      "kind": "random",
+      "size": 40,
+      "seed": 372645365,
+      "requested_nodes": 20,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_058",
+      "kind": "random",
+      "size": 64,
+      "seed": 905316699,
+      "requested_nodes": 18,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_059",
+      "kind": "random",
+      "size": 64,
+      "seed": 359320200,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_060",
+      "kind": "random",
+      "size": 64,
+      "seed": 3202192145,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_061",
+      "kind": "random",
+      "size": 64,
+      "seed": 3458329144,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_062",
+      "kind": "random",
+      "size": 40,
+      "seed": 3243202820,
+      "requested_nodes": 11,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_063",
+      "kind": "random",
+      "size": 40,
+      "seed": 4068315256,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_064",
+      "kind": "random",
+      "size": 40,
+      "seed": 2970527398,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_065",
+      "kind": "random",
+      "size": 24,
+      "seed": 1335436439,
+      "requested_nodes": 18,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_066",
+      "kind": "random",
+      "size": 24,
+      "seed": 2996659944,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_067",
+      "kind": "random",
+      "size": 24,
+      "seed": 3452492265,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_068",
+      "kind": "random",
+      "size": 40,
+      "seed": 1750892270,
+      "requested_nodes": 18,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_069",
+      "kind": "random",
+      "size": 40,
+      "seed": 2545225026,
+      "requested_nodes": 20,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_070",
+      "kind": "random",
+      "size": 24,
+      "seed": 1878145335,
+      "requested_nodes": 14,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_071",
+      "kind": "random",
+      "size": 64,
+      "seed": 756787896,
+      "requested_nodes": 12,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_072",
+      "kind": "random",
+      "size": 24,
+      "seed": 900512911,
+      "requested_nodes": 14,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_073",
+      "kind": "random",
+      "size": 40,
+      "seed": 2982187336,
+      "requested_nodes": 12,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_074",
+      "kind": "random",
+      "size": 64,
+      "seed": 3502152640,
+      "requested_nodes": 16,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_075",
+      "kind": "random",
+      "size": 40,
+      "seed": 3377878175,
+      "requested_nodes": 9,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_076",
+      "kind": "random",
+      "size": 24,
+      "seed": 1279692564,
+      "requested_nodes": 19,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_077",
+      "kind": "random",
+      "size": 24,
+      "seed": 2802217617,
+      "requested_nodes": 17,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_078",
+      "kind": "random",
+      "size": 64,
+      "seed": 4146965187,
+      "requested_nodes": 20,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_079",
+      "kind": "random",
+      "size": 40,
+      "seed": 586688631,
+      "requested_nodes": 16,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_080",
+      "kind": "random",
+      "size": 40,
+      "seed": 3930591602,
+      "requested_nodes": 10,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_081",
+      "kind": "random",
+      "size": 24,
+      "seed": 1798087524,
+      "requested_nodes": 10,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_082",
+      "kind": "random",
+      "size": 40,
+      "seed": 3579116027,
+      "requested_nodes": 15,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_083",
+      "kind": "random",
+      "size": 64,
+      "seed": 1364041230,
+      "requested_nodes": 9,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_084",
+      "kind": "random",
+      "size": 40,
+      "seed": 126325620,
+      "requested_nodes": 12,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_085",
+      "kind": "random",
+      "size": 40,
+      "seed": 457184145,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_086",
+      "kind": "random",
+      "size": 40,
+      "seed": 3201923659,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_087",
+      "kind": "random",
+      "size": 64,
+      "seed": 833454044,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_088",
+      "kind": "random",
+      "size": 64,
+      "seed": 3492703329,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_089",
+      "kind": "random",
+      "size": 40,
+      "seed": 490807077,
+      "requested_nodes": 19,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_090",
+      "kind": "random",
+      "size": 40,
+      "seed": 918481648,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_091",
+      "kind": "random",
+      "size": 40,
+      "seed": 1632909415,
+      "requested_nodes": 12,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_092",
+      "kind": "random",
+      "size": 64,
+      "seed": 3125175456,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_093",
+      "kind": "random",
+      "size": 40,
+      "seed": 2518215721,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_094",
+      "kind": "random",
+      "size": 40,
+      "seed": 4114769405,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_095",
+      "kind": "random",
+      "size": 24,
+      "seed": 3300272259,
+      "requested_nodes": 14,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_096",
+      "kind": "random",
+      "size": 64,
+      "seed": 2869093871,
+      "requested_nodes": 12,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_097",
+      "kind": "random",
+      "size": 40,
+      "seed": 3964624465,
+      "requested_nodes": 11,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_098",
+      "kind": "random",
+      "size": 24,
+      "seed": 353554207,
+      "requested_nodes": 16,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_099",
+      "kind": "random",
+      "size": 64,
+      "seed": 2946715865,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_100",
+      "kind": "random",
+      "size": 40,
+      "seed": 1740402211,
+      "requested_nodes": 10,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_101",
+      "kind": "random",
+      "size": 40,
+      "seed": 1781172352,
+      "requested_nodes": 10,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_102",
+      "kind": "random",
+      "size": 24,
+      "seed": 873112890,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_103",
+      "kind": "random",
+      "size": 40,
+      "seed": 2608616683,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_104",
+      "kind": "random",
+      "size": 40,
+      "seed": 3786482540,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_105",
+      "kind": "random",
+      "size": 64,
+      "seed": 794131648,
+      "requested_nodes": 18,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_106",
+      "kind": "random",
+      "size": 40,
+      "seed": 1412904493,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_107",
+      "kind": "random",
+      "size": 64,
+      "seed": 279396203,
+      "requested_nodes": 13,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_108",
+      "kind": "random",
+      "size": 64,
+      "seed": 1469647922,
+      "requested_nodes": 17,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_109",
+      "kind": "random",
+      "size": 40,
+      "seed": 1574605095,
+      "requested_nodes": 9,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_110",
+      "kind": "random",
+      "size": 40,
+      "seed": 4082553400,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_111",
+      "kind": "random",
+      "size": 40,
+      "seed": 633294341,
+      "requested_nodes": 16,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_112",
+      "kind": "random",
+      "size": 24,
+      "seed": 1236857068,
+      "requested_nodes": 16,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_113",
+      "kind": "random",
+      "size": 64,
+      "seed": 127501274,
+      "requested_nodes": 11,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_114",
+      "kind": "random",
+      "size": 64,
+      "seed": 2353590150,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_115",
+      "kind": "random",
+      "size": 40,
+      "seed": 2888975246,
+      "requested_nodes": 15,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_116",
+      "kind": "random",
+      "size": 64,
+      "seed": 2714091045,
+      "requested_nodes": 18,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_117",
+      "kind": "random",
+      "size": 24,
+      "seed": 827735254,
+      "requested_nodes": 10,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_118",
+      "kind": "random",
+      "size": 24,
+      "seed": 2810190916,
+      "requested_nodes": 14,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_119",
+      "kind": "random",
+      "size": 40,
+      "seed": 2479123047,
+      "requested_nodes": 13,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_120",
+      "kind": "random",
+      "size": 40,
+      "seed": 1754954740,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_121",
+      "kind": "random",
+      "size": 24,
+      "seed": 4101169969,
+      "requested_nodes": 18,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_122",
+      "kind": "random",
+      "size": 40,
+      "seed": 2422780347,
+      "requested_nodes": 18,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_123",
+      "kind": "random",
+      "size": 24,
+      "seed": 1337950913,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_124",
+      "kind": "random",
+      "size": 24,
+      "seed": 3557347963,
+      "requested_nodes": 20,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_125",
+      "kind": "random",
+      "size": 64,
+      "seed": 475788666,
+      "requested_nodes": 12,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_126",
+      "kind": "random",
+      "size": 24,
+      "seed": 1203766007,
+      "requested_nodes": 19,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_127",
+      "kind": "random",
+      "size": 24,
+      "seed": 271659260,
+      "requested_nodes": 19,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_128",
+      "kind": "random",
+      "size": 40,
+      "seed": 2397803946,
+      "requested_nodes": 8,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_129",
+      "kind": "random",
+      "size": 64,
+      "seed": 600267707,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_130",
+      "kind": "random",
+      "size": 40,
+      "seed": 2073859323,
+      "requested_nodes": 13,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_131",
+      "kind": "random",
+      "size": 40,
+      "seed": 1885745681,
+      "requested_nodes": 20,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_132",
+      "kind": "random",
+      "size": 40,
+      "seed": 949594666,
+      "requested_nodes": 17,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_133",
+      "kind": "random",
+      "size": 64,
+      "seed": 1901208721,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_134",
+      "kind": "random",
+      "size": 64,
+      "seed": 3270166669,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_135",
+      "kind": "random",
+      "size": 40,
+      "seed": 2675987823,
+      "requested_nodes": 15,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_136",
+      "kind": "random",
+      "size": 64,
+      "seed": 3146767070,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_137",
+      "kind": "random",
+      "size": 40,
+      "seed": 4042601393,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_138",
+      "kind": "random",
+      "size": 64,
+      "seed": 2855431761,
+      "requested_nodes": 10,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_139",
+      "kind": "random",
+      "size": 24,
+      "seed": 1496859584,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_140",
+      "kind": "random",
+      "size": 24,
+      "seed": 2876613301,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_141",
+      "kind": "random",
+      "size": 24,
+      "seed": 2719723313,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_142",
+      "kind": "random",
+      "size": 40,
+      "seed": 341541400,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_143",
+      "kind": "random",
+      "size": 64,
+      "seed": 1427004047,
+      "requested_nodes": 12,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_144",
+      "kind": "random",
+      "size": 24,
+      "seed": 146208112,
+      "requested_nodes": 17,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_145",
+      "kind": "random",
+      "size": 64,
+      "seed": 778672728,
+      "requested_nodes": 11,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_146",
+      "kind": "random",
+      "size": 64,
+      "seed": 2417964549,
+      "requested_nodes": 13,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_147",
+      "kind": "random",
+      "size": 40,
+      "seed": 3390121214,
+      "requested_nodes": 17,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_148",
+      "kind": "random",
+      "size": 40,
+      "seed": 2722143778,
+      "requested_nodes": 18,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_149",
+      "kind": "random",
+      "size": 64,
+      "seed": 326274139,
+      "requested_nodes": 8,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_150",
+      "kind": "random",
+      "size": 64,
+      "seed": 1066942242,
+      "requested_nodes": 15,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_151",
+      "kind": "random",
+      "size": 64,
+      "seed": 1270758638,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_152",
+      "kind": "random",
+      "size": 24,
+      "seed": 4225569489,
+      "requested_nodes": 11,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_153",
+      "kind": "random",
+      "size": 40,
+      "seed": 2384474582,
+      "requested_nodes": 16,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_154",
+      "kind": "random",
+      "size": 24,
+      "seed": 952998153,
+      "requested_nodes": 18,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_155",
+      "kind": "random",
+      "size": 64,
+      "seed": 1640213086,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_156",
+      "kind": "random",
+      "size": 40,
+      "seed": 1694118355,
+      "requested_nodes": 8,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_157",
+      "kind": "random",
+      "size": 64,
+      "seed": 4146340546,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_158",
+      "kind": "random",
+      "size": 24,
+      "seed": 2366720320,
+      "requested_nodes": 14,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_159",
+      "kind": "random",
+      "size": 24,
+      "seed": 4002910667,
+      "requested_nodes": 8,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_160",
+      "kind": "random",
+      "size": 24,
+      "seed": 2434866674,
+      "requested_nodes": 11,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_161",
+      "kind": "random",
+      "size": 24,
+      "seed": 2930420290,
+      "requested_nodes": 15,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_162",
+      "kind": "random",
+      "size": 24,
+      "seed": 4174506461,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_163",
+      "kind": "random",
+      "size": 40,
+      "seed": 578787841,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_164",
+      "kind": "random",
+      "size": 24,
+      "seed": 3427497551,
+      "requested_nodes": 17,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_165",
+      "kind": "random",
+      "size": 24,
+      "seed": 4202756843,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_166",
+      "kind": "random",
+      "size": 24,
+      "seed": 499835995,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_167",
+      "kind": "random",
+      "size": 64,
+      "seed": 1553559769,
+      "requested_nodes": 16,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_168",
+      "kind": "random",
+      "size": 24,
+      "seed": 3817705568,
+      "requested_nodes": 15,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_169",
+      "kind": "random",
+      "size": 24,
+      "seed": 3530976774,
+      "requested_nodes": 10,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_170",
+      "kind": "random",
+      "size": 24,
+      "seed": 3450903556,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_171",
+      "kind": "random",
+      "size": 24,
+      "seed": 1181612700,
+      "requested_nodes": 12,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_172",
+      "kind": "random",
+      "size": 24,
+      "seed": 856213179,
+      "requested_nodes": 13,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_173",
+      "kind": "random",
+      "size": 40,
+      "seed": 4054828413,
+      "requested_nodes": 17,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_174",
+      "kind": "random",
+      "size": 40,
+      "seed": 2340688516,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_175",
+      "kind": "random",
+      "size": 40,
+      "seed": 524282107,
+      "requested_nodes": 14,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_176",
+      "kind": "random",
+      "size": 64,
+      "seed": 3567847635,
+      "requested_nodes": 18,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_177",
+      "kind": "random",
+      "size": 40,
+      "seed": 1079679387,
+      "requested_nodes": 15,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_178",
+      "kind": "random",
+      "size": 40,
+      "seed": 4247746122,
+      "requested_nodes": 10,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_179",
+      "kind": "random",
+      "size": 24,
+      "seed": 2981975439,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_180",
+      "kind": "random",
+      "size": 24,
+      "seed": 80580055,
+      "requested_nodes": 9,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_181",
+      "kind": "random",
+      "size": 24,
+      "seed": 2940372708,
+      "requested_nodes": 17,
+      "n_anchors": 1,
+      "probability": "uniform255",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_182",
+      "kind": "random",
+      "size": 40,
+      "seed": 959859195,
+      "requested_nodes": 12,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_183",
+      "kind": "random",
+      "size": 24,
+      "seed": 2254432758,
+      "requested_nodes": 18,
+      "n_anchors": 3,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_184",
+      "kind": "random",
+      "size": 64,
+      "seed": 4107068301,
+      "requested_nodes": 19,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_185",
+      "kind": "random",
+      "size": 24,
+      "seed": 2414897500,
+      "requested_nodes": 13,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_186",
+      "kind": "random",
+      "size": 24,
+      "seed": 2640427524,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_187",
+      "kind": "random",
+      "size": 40,
+      "seed": 3385545868,
+      "requested_nodes": 14,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_188",
+      "kind": "random",
+      "size": 64,
+      "seed": 3636746139,
+      "requested_nodes": 8,
+      "n_anchors": 0,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 1.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_189",
+      "kind": "random",
+      "size": 64,
+      "seed": 385521645,
+      "requested_nodes": 9,
+      "n_anchors": 1,
+      "probability": "random",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_190",
+      "kind": "random",
+      "size": 24,
+      "seed": 3043437986,
+      "requested_nodes": 8,
+      "n_anchors": 2,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_191",
+      "kind": "random",
+      "size": 64,
+      "seed": 2955849764,
+      "requested_nodes": 15,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_192",
+      "kind": "random",
+      "size": 24,
+      "seed": 3770167364,
+      "requested_nodes": 16,
+      "n_anchors": 0,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_193",
+      "kind": "random",
+      "size": 24,
+      "seed": 3828515315,
+      "requested_nodes": 15,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_194",
+      "kind": "random",
+      "size": 40,
+      "seed": 2449357659,
+      "requested_nodes": 9,
+      "n_anchors": 2,
+      "probability": "uniform0",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_195",
+      "kind": "random",
+      "size": 64,
+      "seed": 2351557294,
+      "requested_nodes": 9,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_196",
+      "kind": "random",
+      "size": 64,
+      "seed": 123416277,
+      "requested_nodes": 17,
+      "n_anchors": 0,
+      "probability": "uniform255",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_197",
+      "kind": "random",
+      "size": 40,
+      "seed": 3638039745,
+      "requested_nodes": 14,
+      "n_anchors": 1,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.0,
+        "lam": 1.0,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_198",
+      "kind": "random",
+      "size": 24,
+      "seed": 2198395910,
+      "requested_nodes": 17,
+      "n_anchors": 2,
+      "probability": "random",
+      "obstacles": "none",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 2,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "random_199",
+      "kind": "random",
+      "size": 40,
+      "seed": 843372683,
+      "requested_nodes": 15,
+      "n_anchors": 3,
+      "probability": "uniform0",
+      "obstacles": "patches",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.0,
+        "radius": 8,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "image_1",
+      "kind": "validation_roi",
+      "input": "image_1.npz",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "image_211",
+      "kind": "validation_roi",
+      "input": "image_211.npz",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "image_368",
+      "kind": "validation_roi",
+      "input": "image_368.npz",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "image_655",
+      "kind": "validation_roi",
+      "input": "image_655.npz",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "image_857",
+      "kind": "validation_roi",
+      "input": "image_857.npz",
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 40,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_128_0",
+      "kind": "benchmark",
+      "size": 128,
+      "repeat": 0,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 128,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_128_1",
+      "kind": "benchmark",
+      "size": 128,
+      "repeat": 1,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 128,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_128_2",
+      "kind": "benchmark",
+      "size": 128,
+      "repeat": 2,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 128,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_256_0",
+      "kind": "benchmark",
+      "size": 256,
+      "repeat": 0,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 256,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_256_1",
+      "kind": "benchmark",
+      "size": 256,
+      "repeat": 1,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 256,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_256_2",
+      "kind": "benchmark",
+      "size": 256,
+      "repeat": 2,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 256,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_512_0",
+      "kind": "benchmark",
+      "size": 512,
+      "repeat": 0,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 512,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_512_1",
+      "kind": "benchmark",
+      "size": 512,
+      "repeat": 1,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 512,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    },
+    {
+      "case_id": "benchmark_512_2",
+      "kind": "benchmark",
+      "size": 512,
+      "repeat": 2,
+      "n_nodes": 16,
+      "n_anchors": 2,
+      "settings": {
+        "step": 0.2,
+        "lam": 0.25,
+        "radius": 512,
+        "anchor_min_area": 0,
+        "anchor": "shoot"
+      }
+    }
+  ]
+}

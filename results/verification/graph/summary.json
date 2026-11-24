@@ -1,0 +1,77 @@
+{
+  "seed": 20261124,
+  "total_cases": 227,
+  "groups": {
+    "explicit": {
+      "pass": 13,
+      "fail": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "random": {
+      "pass": 200,
+      "fail": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "validation_roi": {
+      "pass": 4,
+      "fail": 0,
+      "error": 0,
+      "skipped": 1
+    },
+    "benchmark": {
+      "pass": 9,
+      "fail": 0,
+      "error": 0,
+      "skipped": 0
+    }
+  },
+  "failed_cases": [],
+  "skipped_cases": [
+    {
+      "case_id": "image_368",
+      "reason": "no_root"
+    }
+  ],
+  "maxerr": 1.1368683772161603e-13,
+  "finite_mismatch": 0,
+  "budgetmismatch": 0,
+  "owner_mismatch": 0,
+  "source_unchanged": true,
+  "frozen_source_sha256_after": {
+    "src/toposeg/reconstruction.py": "a061111e84a4780b6f2b3e7a2183a998bb522101f89e372e1fe3551f0e15f0d6",
+    "src/toposeg/constants.py": "065cde09b86f94ac76d906cdcbbf584fa2c8dc7e7c657db2dad09cdea59f77db",
+    "scripts/verify_fragment_graph.py": "67afae4eec25bfca355d35ab5391d5a0faa76a2cf1f1cc2467467988f1f5189b",
+    "tests/test_fragment_graph_verification.py": "d5df635e4b51b451b2779bdcd6f6b7d4a2e1317bee507d5ac5162fcb049c5873"
+  },
+  "benchmark": {
+    "128": {
+      "measured_repeats": 3,
+      "production_ms_median": 6.744800000888063,
+      "oracle_ms_median": 59.073099999295664,
+      "sparse_density_median": 0.275,
+      "complete_density_median": 1.0
+    },
+    "256": {
+      "measured_repeats": 3,
+      "production_ms_median": 26.091100000485312,
+      "oracle_ms_median": 284.8959000002651,
+      "sparse_density_median": 0.2833333333333333,
+      "complete_density_median": 1.0
+    },
+    "512": {
+      "measured_repeats": 3,
+      "production_ms_median": 114.56519999956072,
+      "oracle_ms_median": 1344.0280000013445,
+      "sparse_density_median": 0.2833333333333333,
+      "complete_density_median": 1.0
+    }
+  },
+  "verification_wall_seconds": 10.338741700001265,
+  "limitations": [
+    "No GT, full-image performance, path equality, memory or stage timing claims.",
+    "Passing sampled cases is numerical evidence, not a proof of the proposition.",
+    "Benchmark radius=size is a separate full-domain synthetic protocol."
+  ]
+}

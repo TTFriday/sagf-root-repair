@@ -1,0 +1,22 @@
+{
+  "analysis": "training-history audit, not checkpoint re-evaluation",
+  "max_steps": 30000,
+  "patience_validation_epochs": 20,
+  "validation_schedule": "after each training epoch",
+  "selection": "first strict maximum of val_complete_root_cldice",
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "experiments": {
+    "Region": "baseline_region",
+    "clDice": "baseline_cldice",
+    "Skeleton Recall": "baseline_skelrecall",
+    "MultiTopo": "full",
+    "MultiTopo-U": "ablation_uniform",
+    "MultiTopo-J": "ablation_no_joint_root",
+    "MultiTopo-H": "ablation_no_skeleton_head"
+  },
+  "checkpoint_hash_binding_checked": false
+}

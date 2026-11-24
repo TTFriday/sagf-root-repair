@@ -188,6 +188,47 @@ are transfer adaptations, not unchanged shoot anchoring. All fixed size/closing/
 are reported without selection. Results are not clinical evidence or a standard DRIVE
 benchmark ranking; the mirror's official test images must not be used to tune arms.
 
+## Independent graph verification and training-history audit
+
+This 1.3.0 source package adds verification helpers and numerical records without changing
+the frozen reconstruction, selection or confirmatory analysis code. The archived public core
+corresponds to commit `d113c0f`; the additional files accompany the revised manuscript.
+
+`verify_fragment_graph.py` constructs an independent eight-neighbour pixel CSR network,
+including zero-weight edges, and obtains the complete distance network by per-node
+multi-boundary Dijkstra propagation. Floyd min-max gives the reference bottlenecks.
+It checks bottleneck values, unreachable status, fixed source owners and retention under
+all supplied budgets, not equality of every additive distance or drawn path. The fixed
+protocol is written before execution; no failed or skipped case is replaced.
+
+Run from the repository root. The graph output must be a new directory outside this source
+tree, with an existing parent. Omitting `--prob-dir` runs only the synthetic cases.
+
+```bash
+python scripts/verify_fragment_graph.py --output ../graph_check_new
+python scripts/verify_fragment_graph.py --output ../graph_check_with_rois \
+  --prob-dir /absolute/path/to/baseline_region/seed_17/probs_val
+python scripts/audit_training_budget.py --runs-root outputs \
+  --output outputs/training_audit_new
+```
+
+The supplied graph run plans 227 cases: 226 valid cases pass, and one fixed validation ROI
+has no root after prefiltering and is recorded as skipped. The 200 random cases are all
+retained. Case inputs are identified by relative names, hashes and ROI coordinates.
+Synthetic grid timings compare production graph construction with a complete reference
+that additionally constructs the pixel matrix and computes bottlenecks; they are not
+full-image decoder speedups or a benchmark ranking. Cropped validation graphs are not
+full-image performance tests and do not use ground truth.
+
+`audit_training_budget.py` records the actual last training step and the first maximum of
+validation complete-root clDice for all seven objectives and three seeds. The 30,000-step
+limit is a cap: eleven runs reach it and ten stop earlier. The helper audits histories,
+not checkpoint-to-evaluation hash binding. Numerical records are under
+`results/verification/`; all new outputs must remain separate from those records.
+The extended CPU tests cover analytic pixel costs, zero-cost ties, disconnected domains,
+filtered source IDs, fixed ownership, no-anchor cases, broad drawing without repainting,
+training-selection ties and write-once output handling.
+
 ## Citation and license
 
 Please cite the accompanying SAGF article and repository; metadata is in `CITATION.cff`.
