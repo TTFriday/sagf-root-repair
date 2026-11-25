@@ -25,8 +25,9 @@ tests/             CPU unit and synthetic integration tests
 
 Article figures, their generation/styling code, manuscript and typesetting assets, images,
 model weights, probability caches and machine-local data paths are excluded from this release.
-Do not overwrite frozen results or protocol records when running examples: write new work
-under `outputs/`.
+`.gitattributes` keeps tracked text files in LF format, and `RELEASE_SHA256.csv` records the
+SHA-256 of every tracked release file except the manifest itself. Do not overwrite frozen
+results or protocol records when running examples: write new work under `outputs/`.
 
 Aggregate analysis scripts write numerical CSV/statistical results, not article plots or
 LaTeX tables. Core image loading, transforms and prediction-mask export in `evaluate.py`
@@ -191,8 +192,8 @@ benchmark ranking; the mirror's official test images must not be used to tune ar
 ## Independent graph verification and training-history audit
 
 This 1.3.0 source package adds verification helpers and numerical records without changing
-the frozen reconstruction, selection or confirmatory analysis code. The archived public core
-corresponds to commit `d113c0f`; the additional files accompany the revised manuscript.
+the frozen reconstruction, selection or confirmatory analysis code. The complete package is
+publicly available at https://github.com/TTFriday/sagf-root-repair.
 
 `verify_fragment_graph.py` constructs an independent eight-neighbour pixel CSR network,
 including zero-weight edges, and obtains the complete distance network by per-node
