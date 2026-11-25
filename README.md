@@ -25,9 +25,10 @@ tests/             CPU unit and synthetic integration tests
 
 Article figures, their generation/styling code, manuscript and typesetting assets, images,
 model weights, probability caches and machine-local data paths are excluded from this release.
-`.gitattributes` keeps tracked text files in LF format, and `RELEASE_SHA256.csv` records the
-SHA-256 of every tracked release file except the manifest itself. Do not overwrite frozen
-results or protocol records when running examples: write new work under `outputs/`.
+`.gitattributes` disables line-ending conversion so released file bytes are preserved, and
+`RELEASE_SHA256.csv` records the SHA-256 of every tracked release file except the manifest
+itself. Do not overwrite frozen results or protocol records when running examples: write new
+work under `outputs/`.
 
 Aggregate analysis scripts write numerical CSV/statistical results, not article plots or
 LaTeX tables. Core image loading, transforms and prediction-mask export in `evaluate.py`
